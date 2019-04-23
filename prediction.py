@@ -30,5 +30,19 @@ mask = np.argmax(prediction[0], axis=2)
 # final segmentation result
 colored_mask = colors[mask]
 
-plt.imshow(colored_mask)
+def prepare2(path):
+    img = cv2.imread(path)
+    b,g,r = cv2.split(img)       # get b,g,r
+    img_array_rgb = cv2.merge([r,g,b])     # switch it to rgb
+    img_array = cv2.resize(img_array_rgb, (576, 160))
+
+    return img_array
+
+fig = plt.figure()
+
+fig, (ax1, ax2) = plt.subplots(1,2)
+
+ax1.imshow(prepare2(image_path))
+ax2.imshow(colored_mask)
+
 plt.show()
